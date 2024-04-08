@@ -7,10 +7,12 @@ services:
     command: yarn start:dev db:studio
     ports:
       - '3000:3000'
+      - '5555:5555'
     volumes:
       - .:/server
     depends_on:
       - mysql
+      - kafka
     env_file:
       - .env
   mysql:
@@ -35,7 +37,6 @@ services:
       - 2181:2181
       - 2888:2888
       - 3888:3888
-
   # kafka single node     
   kafka:
     image: wurstmeister/kafka:latest

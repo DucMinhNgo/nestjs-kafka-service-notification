@@ -9,7 +9,7 @@ interface SendNotificationPayload {
 }
 
 @Controller()
-export class NotificationsController {
+export class NotificationsKafkaController {
   constructor(private sendNotification: SendNotification) {}
 
   @EventPattern('notifications.send-notification')
