@@ -70,3 +70,39 @@ kafka cluster thường là số lẻ.
 
   - High reliable.
   - High performance.
+
+## 003: Gửi và nhận message trong Apache Kafka
+
+Mỗi khi thêm một feature mới có 2 cách để team quyết định:
+
+- Tất cả cùng vote (mất thời gian)
+- Bầu ra 1 leader để quyết định cho cả team
+- Tại 1 thời điểm mỗi partition có duy nhất 1 leader
+- Chỉ có read/ write message từ replication leader
+- Các replication còn lại được gọi là ISR: (in sync replica)
+
+![alt text](docs/images/image-1.png)
+
+### Producer
+
+producer là người gửi message đến message broker, write data đến partition của
+topic
+
+### ack - acknowledgment
+
+- acks=0: giống fire-and-forget, gửi message mà không chờ phản hồi. Do vậy có
+  thể dẫn đến tình huống mất message.
+
+- acks=1: default setting. Lần này chắc chắn hơn, producer chờ cho tới khi nhận
+  được phản hồi từ replication leader. Tuy nhiên chưa ngăn chặn hoàn toàn việc
+  mất message. Replication leader write message thành công, báo lại cho
+  producer, tuy nhiên broker có thể gặp sự cố với disk, không thể khôi phục
+  data.
+
+- acks=all: lần này thì quá chắc chắn, đảm bảo không mất message. Producer sẽ
+  nhận được phản hồi khi tất cả replication leader và IRS write data thành công.
+
+> Từ 1 partition/1 consumer thành 5 partition/5 consumer khả năng sẽ đem lại
+> performance tốt
+
+## 004: Apache Kafka consumer offset, Broker discovery và Zookeeper
