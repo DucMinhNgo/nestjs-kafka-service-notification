@@ -12,7 +12,7 @@ export class NotificationsController {
 
   @Post()
   async create(@Body() body: CreateNotificationBody) {
-    const { recipientId, content, category } = body;
+    const { recipientId, content, category, partition } = body;
 
     const { notification } = await this.sendNotification.execute({
       recipientId,
@@ -20,12 +20,13 @@ export class NotificationsController {
       content,
     });
 
-    await this.producerService.produce('notification', {
+    await this.producerService.produce('notifications', {
       value: JSON.stringify({
         recipientId,
         category,
         content,
       }),
+      partition,
     });
 
     return {

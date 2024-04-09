@@ -22,9 +22,15 @@ export class KafkajsConsumer implements IConsumer {
     private readonly topic: ConsumerSubscribeTopic,
     // private readonly databaseService: DatabaseService,
     config: ConsumerConfig,
-    broker: string,
+    brokers: string[],
   ) {
-    this.kafka = new Kafka({ brokers: [broker] });
+    for (let i = 0; i < brokers.length; i++) {
+      const tempt = new Kafka({ brokers: [brokers[i]] });
+      if (tempt) {
+        this.kafka = tempt;
+        break;
+      }
+    }
     this.consumer = this.kafka.consumer(config);
     this.logger = new Logger(`${topic.topic}-${config.groupId}`);
   }

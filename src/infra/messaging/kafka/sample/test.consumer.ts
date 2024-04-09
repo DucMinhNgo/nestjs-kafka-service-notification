@@ -7,11 +7,14 @@ export class TestConsumer implements OnModuleInit {
 
     async onModuleInit() {
         await this.consumerService.consume({
-            topic: { topic: 'notification' },
-            config: { groupId: 'test-consumer' },
+            topic: { topic: 'notifications' },
+            config: {
+                groupId: 'test'
+            },
             onMessage: async (message: any) => {
                 try {
-                    console.log("Consumer get message: ");
+                    console.log('Consumer get message: ');
+                    console.log({ message });
 
                     console.log({
                         dustin: JSON.parse(message.value),

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { KafkaConsumerService } from './kafka/kafka-consumer.service';
+// import { KafkaConsumerService } from './kafka/kafka-consumer.service';
 import { DatabaseModule } from '../database/database.module';
 import { SendNotification } from '../../app/use-cases/send-notification';
 import { NotificationsController } from '../notifications/controllers/notifications.controller';
@@ -13,11 +13,11 @@ import { ConsumerService } from './kafka/sample/consumer.service';
   imports: [DatabaseModule, ConfigModule.forRoot()],
   controllers: [NotificationsController, NotificationsKafkaController],
   providers: [
-    KafkaConsumerService,
+    // KafkaConsumerService,
     SendNotification,
     ProducerService,
     TestConsumer,
     ConsumerService,
   ],
 })
-export class MessagingModule { }
+export class MessagingModule {}

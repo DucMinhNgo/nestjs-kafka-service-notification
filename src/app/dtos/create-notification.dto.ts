@@ -11,4 +11,7 @@ export class CreateNotificationBody {
 
   @IsNotEmpty()
   category: string;
+
+  @IsNotEmpty()
+  partition: number;
 }

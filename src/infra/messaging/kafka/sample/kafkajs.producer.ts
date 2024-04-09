@@ -11,16 +11,28 @@ export class KafkajsProducer implements IProducer {
   private readonly producer: Producer;
   private readonly logger: Logger;
 
-  constructor(private readonly topic: string, broker: string) {
-    this.kafka = new Kafka({
-      brokers: [broker],
-    });
+  constructor(private readonly topic: string, brokers: string[]) {
+    for (let i = 0; i < brokers.length; i++) {
+      const tempt = new Kafka({ brokers: [brokers[i]] });
+      if (tempt) {
+        this.kafka = tempt;
+        break;
+      }
+    }
     this.producer = this.kafka.producer();
     this.logger = new Logger(topic);
   }
 
   async produce(message: Message) {
-    await this.producer.send({ topic: this.topic, messages: [message] });
+    // await this.producer.send({ topic: this.topic, messages: [message] });
+    await this.producer.send({
+      topic: this.topic,
+      messages: [
+        message,
+        // { key: 'key1', value: 'hello world', partition: 0 },
+        // { key: 'key2', value: 'hey hey!', partition: 1 },
+      ],
+    });
   }
 
   async connect() {
