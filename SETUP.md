@@ -106,3 +106,42 @@ topic
 > performance tốt
 
 ## 004: Apache Kafka consumer offset, Broker discovery và Zookeeper
+
+offset: vị trí lưu message trong partition
+
+consumer offset: giống như checkpoint hoặc bookmark for customer group. Consumer
+cần biết chính xác vị trí của message cần đọc.
+
+1.1. At most once
+
+Consumer commit offset ngay khi nhận được message. (gặp sự cố ngay kho vừa gặp
+message mà chưa kịp xử lý).
+
+1.2. At least once
+
+Consumer commit offset sau khi xử lý xong message. Nếu consumer gặp sự cố sau
+khi wake up consumer sẽ xử lý lại vấn đề đó.
+
+Idempotent: là những xử lý có thể lặp lại nhiều lần mà không ảnh hưởng đến hệ
+thống
+
+Ví dụ: RESTful API quey resource GET method là idempotent API
+
+1.3. Exactly once
+
+### 005: Bao nhiêu partition là đủ cho một topic trong Apache Kafka
+
+Kafka không cho phép giảm số lượng partition của topic, chỉ cho phép tăng hoặc
+xóa đi tạo lại
+
+### 006: Thực hành Apache Kafka với Kafka CLI
+
+### 007: Simple Kafka Producer client API với Java
+
+### 008: Kafka Producer transaction và delivery semantics với Java
+
+### 009: Kafka Consumer client API với Java
+
+### 010: Apache Kafka connect concept
+
+![alt text](docs/images/image-2.png)
