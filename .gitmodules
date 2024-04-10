@@ -1,0 +1,3 @@
+[submodule "nesjs-kafka-consumer"]
+	path = nesjs-kafka-consumer
+	url = https://github.com/DucMinhNgo/nesjs-kafka-consumer.git
