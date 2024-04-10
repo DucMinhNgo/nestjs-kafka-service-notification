@@ -36,3 +36,4 @@ lerna-debug.log*
 
 # Prisma
 prisma/data
+/kafka-consumer

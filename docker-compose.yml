@@ -1,5 +1,22 @@
 version: '3.8'
 services:
+  consumer:
+    container_name: consumer
+    build: kafka-consumer/.
+    tty: true
+    command: yarn start:dev db:studio
+    ports:
+      - '3001:3000'
+    volumes:
+      - .:/consumer
+    depends_on:
+      - mysql
+      - kafka
+      - kafka2
+      - kafka3
+    env_file:
+      - .env
+
   server:
     container_name: server
     build: .
